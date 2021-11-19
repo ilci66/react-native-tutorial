@@ -4,13 +4,15 @@ import { StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
   return (
+    // view is like div
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Text>wassap!!</Text>
+      <Text>Hello !</Text>
       <StatusBar style="auto" />
     </View>
   );
 }
-
+// this is how react-native emulates the css
 const styles = StyleSheet.create({
   container: {
     flex: 1,

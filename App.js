@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 
 export default function App() {
   const [people, setPeople] = useState([
@@ -12,16 +12,26 @@ export default function App() {
     { name: 'bowser', id: '7' },
   ]);
 
+  const pressHandler = (id) => {
+    console.log("clicked item's id ==>",id);
+    // prevPoeple is the people array, this is how you delete elements
+    setPeople((prevPeople) => {
+      return prevPeople.filter(person => person.id  != id);
+    });
+  };
+
   return (
     <View style={styles.container}>
-      {/* This is alot better for perfomrance when loading larger lists because it renders as the user scrolls */}
+
       <FlatList 
         numColumns={2}
-        // FlatList automatically gets the key, but if there aren't keys given,  i can define the keys like this
         keyExtractor={(item) => item.id} 
         data={people} 
-        renderItem={({ item }) => ( 
-          <Text style={styles.item}>{item.name}</Text>
+        renderItem={({ item }) => (
+          // creates a nice opacity on the pressed element, I assume this is the safest way to deletein native, calling a fucntion like that
+          <TouchableOpacity onPress={() => pressHandler(item.id)}>
+            <Text style={styles.item}>{item.name}</Text>
+          </TouchableOpacity>
         )}
       />
 
@@ -37,13 +47,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   item: {
-    // with flex they take up all the available space
-    flex: 1,
-    // gave a margin in between two objects, cool 
+    // well right now doesn't do anything because it's wrapped by another element
+    // flex: 1,
     marginHorizontal: 10,
     marginTop: 24,
     padding: 30,
-    backgroundColor: 'pink',
+    backgroundColor: 'lime',
     fontSize: 24,
   },
 });

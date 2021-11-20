@@ -1,42 +1,46 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
 
 export default function App() {
-
-  // just like in react
-  const [name, setName] = useState("Ryu");
-  const [abilities, setAbilities] = useState({speacial:"Hado-Ken", normal: "kicks real hard" })
-
-  const changeFighter = () => {
-    setName("Raiden");
-    setAbilities({ speacial: "Elecricity Stuff", normal:"punches really hard" });
-  }
+  const [name, setName] = useState('Ilker');
+  const [age, setAge] = useState('27');
 
   return (
     <View style={styles.container}>
-      <View>
-        <Text>Your Fighter is: {name}</Text>
-        <Text>He / She {abilities.normal} and can do {abilities.speacial}</Text>
-      </View>
-      {/* can't style the button but can style this view */}
-      <View style={styles.marginTop}>
-        {/* I can't change style properties of this button as I imported it and somehow it is the rule */}
-        {/* Butt apparently I will be creating something in the future to mimic the button  */}
-        <Button title="Change Fighter" onPress={changeFighter}/>
-      </View>
-    </View>
-      );
-    }
+      {/* the text acts like the container element here for the text inputs */}
+      <Text>Enter name:</Text>
+      {/* This acts like the form element, without any custiomization appears as blank space  */}
+      <TextInput 
+        placeholder='e.g. John Doe' 
+        style={styles.input}
+        // There is no event but they will still take value
+        onChangeText={(value) => setName(value)} />
 
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    marginTop:{
-      marginTop: 50,
-    }
+      <Text>Enter age:</Text>
+      <TextInput 
+        placeholder='e.g. 99' 
+        style={styles.input}
+        // well I only want them to enter numbers here so
+        keyboardType="numeric"
+        onChangeText={(value) => setAge(value)} />
+
+      <Text style={styles.result}>name: {name}, age: {age}</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#777',
+    padding: 8,
+    margin: 10,
+    width: 200,
+  }
 });

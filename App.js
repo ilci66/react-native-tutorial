@@ -1,40 +1,42 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Button } from 'react-native';
 
 export default function App() {
+
+  // just like in react
+  const [name, setName] = useState("Ryu");
+  const [abilities, setAbilities] = useState({speacial:"Hado-Ken", normal: "kicks real hard" })
+
+  const changeFighter = () => {
+    setName("Raiden");
+    setAbilities({ speacial: "Elecricity Stuff", normal:"punches really hard" });
+  }
+
   return (
-    // view is like div
     <View style={styles.container}>
       <View>
-        {/* they don't get style porperties from parent elements such as bold texts etc. so for each element I need to define them  */}
-        <Text style={styles.header}>this be the title!</Text>
-        {/* when there is a text component inside another text component then the child text inerits the style porperties */}
-        <Text style={styles.boldText}><Text>example  </Text>First Text</Text>
-        
-        <Text style={styles.boldText}>Second Text</Text>
-        <Text style={styles.boldText}>Third Text</Text>
+        <Text>Your Fighter is: {name}</Text>
+        <Text>He / She {abilities.normal} and can do {abilities.speacial}</Text>
       </View>
-
-      {/* <StatusBar style="auto" /> */}
+      {/* can't style the button but can style this view */}
+      <View style={styles.marginTop}>
+        {/* I can't change style properties of this button as I imported it and somehow it is the rule */}
+        {/* Butt apparently I will be creating something in the future to mimic the button  */}
+        <Button title="Change Fighter" onPress={changeFighter}/>
+      </View>
     </View>
       );
     }
-    // this is how react-native emulates the css
-    const styles = StyleSheet.create({
-      container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-      },
-      header:{
-        backgroundColor: 'yellow',
-      },
-      boldText:{
-        fontWeight: 'bold',
-        backgroundColor: 'blue',
-        color: "white",
-        padding: 10
-      }
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    marginTop:{
+      marginTop: 50,
+    }
 });

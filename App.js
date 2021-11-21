@@ -3,6 +3,7 @@ import { StyleSheet, View, FlatList, Alert, TouchableWithoutFeedback, Keyboard }
 import Header from './components/header';
 import TodoItem from './components/todoItem';
 import AddTodo from './components/addTodo';
+import Sandbox from './components/sandbox';
 
 export default function App() {
   const [todos, setTodos] = useState([
@@ -17,10 +18,8 @@ export default function App() {
     });
   };
 
-  // argument here automatically becomes the target value of the 
   const submitHandler = (text) => {
     if(text.length > 3){
-      setText('');
       setTodos(prevTodos => {
         return [
           { text, key: Math.random().toString() },
@@ -28,18 +27,18 @@ export default function App() {
         ];
       });
     } else {
-      // this is how you add alerts, looks very decent, no need to create a div that would act as the alert
-      // the comas act as the breaks so after avery coma the text goes to the other line below 
       Alert.alert('OOPS', 'Todo must be over 3 characters long', [
-        // these act like the options 
         {text: 'Understood', onPress: () => console.log('alert closed') }
       ]);
     }
   };
 
   return (
-    // TouchableWithoutFeedback fires whenever the user clicks on the screen, to make it work I gotta wrap the app like this
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    // <Sandbox />
+    <TouchableWithoutFeedback onPress={() => {
+      Keyboard.dismiss();
+      console.log('dismissed');
+    }}>
       <View style={styles.container}>
         <Header />
         <View style={styles.content}>
@@ -65,8 +64,15 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 40,
+    //backgroundColor: 'grey',
+    // without this flexbox value the view is not even visible
+    flex: 1,
   },
   list: {
     marginTop: 20,
+    //backgroundColor: 'lightgrey',
+    // without using the flex: 1 value the content was pushing down instead of staying in the limits of it's parent's
+    // now the overflow is scrollable and paddings and the limits of the parent elemnt still applies
+    flex: 1,
   },
 });

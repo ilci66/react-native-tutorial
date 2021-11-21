@@ -38,6 +38,7 @@ export default function App() {
   };
 
   return (
+    // TouchableWithoutFeedback fires whenever the user clicks on the screen, to make it work I gotta wrap the app like this
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
         <Header />
